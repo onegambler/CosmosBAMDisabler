@@ -6,7 +6,7 @@
   "version": "0.1",
   "permissions": [
     "tabs",
-    "*"
+    "https://admin.live.bbc.co.uk/cosmos/component/*"
   ],
   "browser_action": {
     "name": "Click to change configuration",
@@ -23,7 +23,7 @@
     "128": "images/icon-128.png"
   },
   "content_scripts": [{
-    "matches": ["*"],
+    "matches": ["https://admin.live.bbc.co.uk/cosmos/component/*"],
     "js": ["content.js"],
     "run_at": "document_end"
   }]
