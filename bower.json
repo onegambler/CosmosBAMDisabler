@@ -1,0 +1,21 @@
+{
+  "name": "CosmosBAMDisabler",
+  "homepage": "https://github.com/onegambler/CosmosBAMDisabler",
+  "authors": [
+    "Roberto Magale <roberto.magale@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "bootstrap-table": "^1.11.0"
+  }
+}
