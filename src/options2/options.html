@@ -11,58 +11,61 @@
 
 <body>
     <div class="container">
-        <h2>Disabled buttons</h2>
-        <table class="table table-responsive">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Matching Url</th>
-                    <th>Element Selector</th>
-                    <th>Disable element</th>
-                    <th>Color Red</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                
-                    <td>Pedro Augusto</td>
-                    <td>Pedro Augusto</td>
-                    <td>pedro.augusto@myemail.com</td>
-                    <td>(21) 9999-8888</td>
-                    <td>
-                        <input type="checkbox" name="myTextEditBox" value="checked" />
-                    </td>
-                    <td>
-                        <input type="checkbox" name="myTextEditBox" value="checked" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Paula Silva</td>
-                    <td>Paula Silva</td>
-                    <td>paula.silva@mymail.com</td>
-                    <td>(81) 8787-8686</td>
-                    <td>
-                        <input type="checkbox" name="myTextEditBox" value="checked" /> 
-                    </td>
-                    <td>
-                        <input type="checkbox" name="myTextEditBox" value="checked" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lucas Costa</td>
-                    <td>Lucas Costa</td>
-                    <td>lucas.costa@myemail.com</td>
-                    <td>(84) 3232-3232</td>
-                    <td>
-                        <input type="checkbox" name="myTextEditBox" value="checked" />
-                    </td>
-                    <td>
-                        <input type="checkbox" name="myTextEditBox" value="checked" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <table id="optionsTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th id="id" class="text-center">
+                                #
+                            </th>
+                            <th id="name" class="text-center">
+                                Name
+                            </th>
+                            <th id="url" class="text-center">
+                                Url
+                            </th>
+                            <th id="selector" class="text-center">
+                                Button selector
+                            </th>
+                            <th id="disable" class="text-center">
+                                Disable
+                            </th>
+                            <th id="color" class="text-center">
+                                Color
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='opt0'>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                <input type="text" name='name0' placeholder='Name' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" name='url0' placeholder='Matching url' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" name='selector0' placeholder='Button selector' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="checkbox" name='disable0'/>
+                            </td>
+                            <td>
+                                <input type="checkbox" name='color0'/>
+                            </td>
+                        </tr>
+                        <tr id='opt1'></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+    </div>
+    <div class="container">
+        <button id="saveOptionsButton" type="button" class="btn btn-primary btn-sm pull-right">Save</button>
     </div>
     <!-- Bootstrap -->
     <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
