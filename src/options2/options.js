@@ -1,3 +1,6 @@
+'use strict'
+const ROW_ID_PREFIX = 'opt';
+const OPTIONS_TABLE_ID = 'optionsTable';
 var i = 0;
 
 $(document).ready(function () {
@@ -9,7 +12,7 @@ $(document).ready(function () {
 
     $("#delete_row").click(function () {
         if (i > 1) {
-            $("#opt" + (i - 1)).html('');
+            $("#" + ROW_ID_PREFIX + (i - 1)).html('');
             i--;
         }
     });
@@ -17,7 +20,7 @@ $(document).ready(function () {
 });
 
 function addRow(id) {
-    $('#opt' + id).html(
+    $('#' + ROW_ID_PREFIX + id).html(
         "<td>" + (id + 1) + "</td>" +
         "<td><input name='name" + id + "' type='text' placeholder='Name' class='form-control input-md' /> </td>" +
         "<td><input name='url" + id + "' type='text' placeholder='Rule Url' class='form-control input-md'></td>" +
@@ -25,7 +28,7 @@ function addRow(id) {
         "<td><input  name='disable" + id + "' type='checkbox'</td>" +
         "<td><input  name='color" + id + "' type='checkbox'</td>");
 
-    $('#optionsTable').append('<tr id="opt' + (id + 1) + '"></tr>');
+    $('#' + OPTIONS_TABLE_ID).append('<tr id="' + ROW_ID_PREFIX + (id + 1) + '"></tr>');
 }
 
 // Saves options to chrome.storage
@@ -43,10 +46,10 @@ function saveOptions() {
 function getDisabledContentOptionsFromTable() {
     var array = [];
     var headers = [];
-    $('#optionsTable th').each(function (index, item) {
+    $('#' + OPTIONS_TABLE_ID + 'th').each(function (index, item) {
         headers[index] = $(item).attr('name');
     });
-    $('#optionsTable tr').has('td').each(function () {
+    $('#' + OPTIONS_TABLE_ID + 'tr').has('td').each(function () {
         var arrayItem = {};
         $('td', $(this)).each(function (index, item) {
             arrayItem[headers[index]] = getTableCellValue($(item));
@@ -68,7 +71,7 @@ function getTableCellValue(item) {
     case 'text':
         return child.val();
     default:
-        console.log('Impossible to correclty map input type, returning empty');
+        console.log('Impossible to correctly map input type, returning empty');
         return '';
     }
 }
