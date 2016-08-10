@@ -34,7 +34,6 @@ function addRow(id) {
 // Saves options to chrome.storage
 function saveOptions() {
     var disabledContentOptions = getDisabledContentOptionsFromTable();
-
     chrome.storage.sync.set({
         'disabledContent': disabledContentOptions
     }, function () {
@@ -46,10 +45,10 @@ function saveOptions() {
 function getDisabledContentOptionsFromTable() {
     var array = [];
     var headers = [];
-    $('#' + OPTIONS_TABLE_ID + 'th').each(function (index, item) {
+    $('#' + OPTIONS_TABLE_ID + ' ' + 'th').each(function (index, item) {
         headers[index] = $(item).attr('name');
     });
-    $('#' + OPTIONS_TABLE_ID + 'tr').has('td').each(function () {
+    $('#' + OPTIONS_TABLE_ID + ' ' + 'tr').has('td').each(function () {
         var arrayItem = {};
         $('td', $(this)).each(function (index, item) {
             arrayItem[headers[index]] = getTableCellValue($(item));

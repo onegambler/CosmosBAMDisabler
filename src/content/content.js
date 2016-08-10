@@ -1,31 +1,41 @@
-'use strict'
+'use strict';
+
 String.prototype.contains = function (substring) {
     return this.indexOf(substring) > -1;
-}
+};
 
 var bamEnabled = false;
 var originalButtonCursorStyle;
+var disabledContent = [];
 
-function executeOnButton(condition, modify) {
+function executeOnButton(option, modify) {
     var aTags = document.getElementsByTagName("button");
 
     for (var i = 0; i < aTags.length; i++) {
-        if (condition(aTags[i])) {
+        if (isButtonSelected(aTags[i], option.selector)) {
             modify(aTags[i]);
         }
     }
 }
 
-function isLiveButton(button) {
-    return button.textContent.contains('Promote to live');
+function isButtonSelected(button, content) {
+    return button.textContent.contains(content);
 }
 
-executeOnButton(isLiveButton, function (button) {
-    button.disabled = true;
-    originalButtonCursorStyle = button.style.cursor;
-    button.style.cursor = 'not-allowed';
-    button.className = 'button red';
+chrome.storage.sync.get({
+    'disabledContent': []
+}, function (options) {
+    disabledContent = options.disabledContent;
+    disabledContent.forEach(function (item) {
+        executeOnButton(item, function (button) {
+            button.disabled = true;
+            originalButtonCursorStyle = button.style.cursor;
+            button.style.cursor = 'not-allowed';
+            button.className = 'button red';
+        });
+    });
 });
+
 
 /*
 This method has to have this particular signature (3 params) and it will be executed
@@ -35,14 +45,18 @@ function changeBamStatus(request, sender, callback) {
     if (request.action === 'bam') {
         bamEnabled = !bamEnabled;
         if (bamEnabled) {
-            executeOnButton(isLiveButton, function (button) {
-                button.disabled = false;
-                button.style.cursor = originalButtonCursorStyle;
+            disabledContent.forEach(function (item) {
+                executeOnButton(item, function (button) {
+                    button.disabled = false;
+                    button.style.cursor = originalButtonCursorStyle;
+                });
             });
         } else {
-            executeOnButton(isLiveButton, function (button) {
-                button.disabled = true;
-                button.style.cursor = 'not-allowed';
+            disabledContent.forEach(function (item) {
+                executeOnButton(item, function (button) {
+                    button.disabled = true;
+                    button.style.cursor = 'not-allowed';
+                });
             });
         }
     } else {
@@ -55,13 +69,6 @@ Here we are asking the content scripts to listen to the phone calls (requests) a
 to call the method named ListeningMethod when it actually listens the ring
 */
 chrome.extension.onMessage.addListener(changeBamStatus);
-
-// Inform the background page that
-// this tab should have a page-action
-chrome.runtime.sendMessage({
-    from: 'content',
-    subject: 'showPageAction'
-});
 
 // Listen for messages from the popup
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {

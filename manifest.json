@@ -7,9 +7,9 @@
     "permissions": [
         "tabs",
         "storage",
-        "https://admin.live.bbc.co.uk/cosmos/component/*"
+        "<all_urls>"
     ],
-    "browser_action": {
+    "page_action": {
         "name": "Click to change configuration",
         "default_icon": "images/icon.png",
         "default_popup": "src/popup/popup.html"
@@ -23,10 +23,5 @@
         "16": "images/icon.png",
         "48": "images/icon.png",
         "128": "images/icon-128.png"
-    },
-    "content_scripts": [{
-        "matches": ["https://admin.live.bbc.co.uk/cosmos/component/*"],
-        "js": ["src/content/content.js"],
-        "run_at": "document_end"
-  }]
+    }
 }
