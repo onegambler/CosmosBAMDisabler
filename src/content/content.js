@@ -25,7 +25,6 @@ function isButtonSelected(button, content) {
 chrome.storage.sync.get({
     'disabledContent': []
 }, function (options) {
-
     disabledContent = options.disabledContent;
     disabledContent.forEach(function (item) {
         executeOnButton(item, function (button) {
@@ -68,8 +67,11 @@ function changeBamStatus(request, sender, callback) {
     } else {
         disabledContent.forEach(function (item) {
             executeOnButton(item, function (button) {
-                button.disabled = true;
-                button.style.cursor = 'not-allowed';
+                if (item.disable) {
+                    button.disabled = true;
+                    originalButtonCursorStyle = button.style.cursor;
+                    button.style.cursor = 'not-allowed';
+                }
             });
         });
     }
