@@ -21,9 +21,8 @@ chrome.tabs.onUpdated.addListener(function (id, info, tab) {
 
     if (validOptions.length > 0) {
         chrome.pageAction.show(tab.id);
-
         chrome.tabs.executeScript(tab.id, {
-            file: "content.js",
+            file: 'content.js',
             runAt: 'documentEnd'
         });
     }
