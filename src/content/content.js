@@ -28,39 +28,52 @@ chrome.storage.sync.get({
     disabledContent = options.disabledContent;
     disabledContent.forEach(function (item) {
         executeOnButton(item, function (button) {
-            button.disabled = true;
-            originalButtonCursorStyle = button.style.cursor;
-            button.style.cursor = 'not-allowed';
-            button.className = 'button red';
+            if (item.disable) {
+                button.disabled = true;
+                originalButtonCursorStyle = button.style.cursor;
+                button.style.cursor = 'not-allowed';
+            }
+            if (item.color) {
+                button.className = button.className + ' red';
+            }
         });
     });
 });
 
+
+function messageListener(request, sender, callback) {
+    switch (request.from) {
+        case 'popup':
+            handlePopupRequest(request, sender, callback);
+            break;
+        default:
+            console.warn('From not valid ' + request.from);
+    }
+}
 
 /*
 This method has to have this particular signature (3 params) and it will be executed
 every time the content script receives a call (a request)
 */
 function changeBamStatus(request, sender, callback) {
-    if (request.action === 'bam') {
-        bamEnabled = !bamEnabled;
-        if (bamEnabled) {
-            disabledContent.forEach(function (item) {
-                executeOnButton(item, function (button) {
-                    button.disabled = false;
-                    button.style.cursor = originalButtonCursorStyle;
-                });
+    bamEnabled = !bamEnabled;
+    if (bamEnabled) {
+        disabledContent.forEach(function (item) {
+            executeOnButton(item, function (button) {
+                button.disabled = false;
+                button.style.cursor = originalButtonCursorStyle;
             });
-        } else {
-            disabledContent.forEach(function (item) {
-                executeOnButton(item, function (button) {
-                    button.disabled = true;
-                    button.style.cursor = 'not-allowed';
-                });
-            });
-        }
+        });
     } else {
-        console.error('Action not defined');
+        disabledContent.forEach(function (item) {
+            executeOnButton(item, function (button) {
+                if (item.disable) {
+                    button.disabled = true;
+                    originalButtonCursorStyle = button.style.cursor;
+                    button.style.cursor = 'not-allowed';
+                }
+            });
+        });
     }
 }
 
@@ -68,21 +81,20 @@ function changeBamStatus(request, sender, callback) {
 Here we are asking the content scripts to listen to the phone calls (requests) and
 to call the method named ListeningMethod when it actually listens the ring
 */
-chrome.extension.onMessage.addListener(changeBamStatus);
+chrome.extension.onMessage.addListener(messageListener);
 
 // Listen for messages from the popup
-chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-    // First, validate the message's structure
-    if ((msg.from === 'popup') && (msg.subject === 'DOMInfo')) {
-        // Collect the necessary data
-        // (For your specific requirements `document.querySelectorAll(...)`
-        //  should be equivalent to jquery's `$(...)`)
-        var domInfo = {
-            bamEnabled: bamEnabled
-        };
+function handlePopupRequest(request, sender, response) {
+    switch (request.action) {
+        case 'DOMInfo':
+            var domInfo = {
+                bamEnabled: bamEnabled
+            };
+            response(domInfo);
+            break;
+        case 'bam':
+            changeBamStatus(request, sender, response);
+            break;
 
-        // Directly respond to the sender (popup),
-        // through the specified callback */
-        response(domInfo);
     }
-});
+}

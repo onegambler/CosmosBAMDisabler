@@ -1,25 +1,23 @@
-#optionsTable td {
-    vertical-align: middle; 
+.header {
+    text-align: center;
 }
-
+#optionsTable td {
+    vertical-align: middle;
+}
 input[type="checkbox"] {
     width: 100%;
     height: 50%
 }
-
 .editableTable {
     border: solid 1px;
     width: 100%
 }
-
 .editableTable td {
     border: solid 1px;
 }
-
 .editableTable .cellEditing {
     padding: 0;
 }
-
 .editableTable .cellEditing input[type=text] {
     width: 100%;
     border: 0;

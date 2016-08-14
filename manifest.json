@@ -3,7 +3,8 @@
 
     "name": "Cosmos BAM Disabler",
     "description": "Disable cosmos Deploy to live buttons",
-    "version": "0.1",
+    "version": "0.2",
+    "author": "Roberto Magale",
     "permissions": [
         "tabs",
         "storage",

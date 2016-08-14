@@ -1,6 +1,7 @@
 function clickHandler() {
     getSelectedTab(function (tab) {
         chrome.tabs.sendMessage(tab.id, {
+            from: 'popup',
             action: 'bam'
         });
     });
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     getSelectedTab(function (tab) {
         chrome.tabs.sendMessage(tab.id, {
             from: 'popup',
-            subject: 'DOMInfo'
+            action: 'DOMInfo'
         }, updatePopup);
     });
 });

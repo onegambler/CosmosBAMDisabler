@@ -22,8 +22,12 @@ chrome.tabs.onUpdated.addListener(function (id, info, tab) {
     if (validOptions.length > 0) {
         chrome.pageAction.show(tab.id);
         chrome.tabs.executeScript(tab.id, {
-            file: 'content.js',
+            file: 'src/content/content.js',
             runAt: 'documentEnd'
+        }, function () {
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError.message);
+            }
         });
     }
 });
