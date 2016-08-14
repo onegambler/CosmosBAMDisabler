@@ -94,6 +94,7 @@ function handlePopupRequest(request, sender, response) {
             break;
         case 'bam':
             changeBamStatus(request, sender, response);
+            break;
 
     }
 }
