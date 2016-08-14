@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Bam Disabler Options</title>
+</head>
+
+<body>
+    <div class="header" id="banner" style="text-align: center">
+        <div class="row">
+            <h1>Bam Disabler Options</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <table id="optionsTable" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th name="id" class="text-center">
+                                #
+                            </th>
+                            <th name="name" class="text-center">
+                                Name
+                            </th>
+                            <th name="url" class="text-center">
+                                Url
+                            </th>
+                            <th name="selector" class="text-center">
+                                Button selector
+                            </th>
+                            <th name="disable" class="text-center">
+                                Disable
+                            </th>
+                            <th name="color" class="text-center">
+                                Color
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id='opt0'>
+                            <td name='id0'>
+                                1
+                            </td>
+                            <td>
+                                <input type="text" name='name0' placeholder='Name' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" name='url0' placeholder='Matching url' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="text" name='selector0' placeholder='Button text' class="form-control" />
+                            </td>
+                            <td>
+                                <input type="checkbox" name='disable0' />
+                            </td>
+                            <td>
+                                <input type="checkbox" name='color0' />
+                            </td>
+                        </tr>
+                        <tr id='opt1'></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+        </div>
+    </div>
+    <div class="container">
+        <button id="saveOptionsButton" type="button" class="btn btn-primary btn-sm pull-right">Save</button>
+    </div>
+    <!-- Bootstrap -->
+    <link href="../../lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../lib/bootstrap-table/dist/bootstrap-table.css" rel="stylesheet">
+    <link href="options.css" rel="stylesheet">
+    <script src="../../lib/jquery/dist/jquery.min.js"></script>
+    <script src="../../lib/bootstrap-table/dist/bootstrap-table.js"></script>
+    <script src="options.js"></script>
+</body>
+
+</html>
