@@ -1,26 +1,26 @@
-function clickHandler() {
-    getSelectedTab(function (tab) {
-        chrome.tabs.sendMessage(tab.id, {
-            from: 'popup',
-            action: 'bam'
-        });
-    });
-}
+chrome.tabs.getSelected(null, function (tab) {
 
-function getSelectedTab(callback) {
-    chrome.tabs.getSelected(null, callback);
-}
+	var port = chrome.tabs.connect(tab.id, {
+		name: "popup"
+	});
 
-function updatePopup(info) {
-    document.getElementById('toggle').checked = info.bamEnabled;
-}
+	function clickHandler() {
+		port.postMessage({
+			from: 'popup',
+			action: 'bam'
+		});
+	}
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('toggle').addEventListener('click', clickHandler);
-    getSelectedTab(function (tab) {
-        chrome.tabs.sendMessage(tab.id, {
-            from: 'popup',
-            action: 'DOMInfo'
-        }, updatePopup);
-    });
+	function updatePopup(info) {
+		document.getElementById('toggle').checked = info.bamEnabled;
+	}
+
+	document.getElementById('toggle').addEventListener('click', clickHandler);
+
+	port.onMessage.addListener(updatePopup);
+
+	port.postMessage({
+		from: 'popup',
+		action: 'DOMInfo'
+	});
 });
