@@ -11,7 +11,7 @@ chrome.tabs.onUpdated.addListener(function (id, info, tab) {
     chrome.storage.sync.get({
         'disabledContent': []
     }, function (options) {
-
+        validOptions = [];
         options.disabledContent.forEach(function (item) {
             if (tab.url.indexOf(item.url) > -1) {
                 validOptions.push(item);
