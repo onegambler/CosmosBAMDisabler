@@ -45,7 +45,7 @@ This method has to have this particular signature (3 params) and it will be exec
 every time the content script receives a call (a request)
 */
 function changeBamStatus(message) {
-	bamEnabled = !bamEnabled;
+	bamEnabled = message.enabled;
 	if (bamEnabled) {
 		disabledContent.forEach(function (item) {
 			executeOnButton(item, function (button) {

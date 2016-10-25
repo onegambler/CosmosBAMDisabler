@@ -1,4 +1,5 @@
 chrome.tabs.getSelected(null, function (tab) {
+	var toggle = document.getElementById('toggle');
 
 	var port = chrome.tabs.connect(tab.id, {
 		name: "popup"
@@ -7,15 +8,16 @@ chrome.tabs.getSelected(null, function (tab) {
 	function changeHandler() {
 		port.postMessage({
 			from: 'popup',
-			action: 'bam'
+			action: 'bam',
+			enabled: toggle.checked
 		});
 	}
 
 	function updatePopup(info) {
-		document.getElementById('toggle').checked = info.bamEnabled;
+		toggle.checked = info.bamEnabled;
 	}
 
-	document.getElementById('toggle').addEventListener('change', changeHandler);
+	toggle.addEventListener('change', changeHandler);
 
 	port.onMessage.addListener(updatePopup);
 
