@@ -4,7 +4,7 @@ chrome.tabs.getSelected(null, function (tab) {
 		name: "popup"
 	});
 
-	function clickHandler() {
+	function changeHandler() {
 		port.postMessage({
 			from: 'popup',
 			action: 'bam'
@@ -15,7 +15,7 @@ chrome.tabs.getSelected(null, function (tab) {
 		document.getElementById('toggle').checked = info.bamEnabled;
 	}
 
-	document.getElementById('toggle').addEventListener('click', clickHandler);
+	document.getElementById('toggle').addEventListener('change', changeHandler);
 
 	port.onMessage.addListener(updatePopup);
 
